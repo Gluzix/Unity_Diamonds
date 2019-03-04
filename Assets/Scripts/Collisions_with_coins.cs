@@ -14,7 +14,6 @@ public class Collisions_with_coins : MonoBehaviour
     {
         countText.text = "Punctation: " + punctation.ToString();
     }
-
     void OnCollisionEnter2D(Collision2D collision)
     {
         if(how_many_coins<29)
@@ -32,5 +31,4 @@ public class Collisions_with_coins : MonoBehaviour
             }
         }    
     }
-
 }
