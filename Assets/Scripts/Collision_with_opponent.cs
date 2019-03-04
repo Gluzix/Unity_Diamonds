@@ -6,7 +6,7 @@ public class Collision_with_opponent : MonoBehaviour
 {
     private Rigidbody2D rb;
     private int how_many_opponents=4;
-    private float HitForce = 40;
+    private float HitForce = 35;
 
     // Start is called before the first frame update
     void Start()
