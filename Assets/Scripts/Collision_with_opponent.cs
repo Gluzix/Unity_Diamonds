@@ -12,6 +12,12 @@ public class Collision_with_opponent : MonoBehaviour
     private bool destroy_life = false;
     private int wait_few_frames = 0;
     private bool if_hit = false;
+    private bool finished = false;
+
+    public bool ret_fin()
+    {
+        return finished;
+    }
 
     public bool Ret_if_hit()
     {
@@ -44,7 +50,7 @@ public class Collision_with_opponent : MonoBehaviour
     {
         for(int i=1; i<=how_many_opponents; i++)
         {
-            if (collision.gameObject.name == "Opponent_Mace_" + i.ToString())
+            if (collision.gameObject.name == "Opponent_Mace_" + i.ToString() || collision.gameObject.name == "Saw")
             {
                 if_hit = true;
                 rb.velocity = new Vector2();
@@ -55,7 +61,7 @@ public class Collision_with_opponent : MonoBehaviour
                     {
                         case 1: Destroy(Hearts_3); heart_counter++; break;
                         case 2: Destroy(Hearts_2); heart_counter++; break;
-                        case 3: Destroy(Hearts_1); break;
+                        case 3: Destroy(Hearts_1); finished = true; break;
                     }
                     destroy_life = false;
                 }

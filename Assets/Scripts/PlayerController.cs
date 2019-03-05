@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -19,6 +20,8 @@ public class PlayerController : MonoBehaviour
     public LayerMask whatIsGround;
     public Collision_with_opponent colwithOp;
     public Animator anim;
+    public Collisions_with_coins cwc;
+    public Text txt;
 
     void Start()
     {
@@ -29,25 +32,31 @@ public class PlayerController : MonoBehaviour
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsGround);
 
+        txt.text = "Speed:"+speed.ToString()+"\nJumpFroce:"+jumpForce.ToString();
+
         if (colwithOp.Ret_if_hit())
         {
             anim.SetBool("TouchedByOppnt", true);
         }
-        
 
+        if(cwc.addb())
+        {
+            jumpForce += (float)0.5;
+            speed += (float)0.5 ;
+            cwc.instbns(false);
+        }
+        
         moveInput = Input.GetAxis("Horizontal"); 
         anim.SetFloat("Speed", Mathf.Abs(moveInput));
 
         if (isGrounded)
         {
-            if(iterator_2>3)
+            if(iterator_2>10)
             {
                 anim.SetBool("TouchedByOppnt", false);
                 colwithOp.Ins_if_hit(false);
                 iterator_2 = 0;
             }
-
-
             anim.SetBool("isGround", true);
             if (iterator > 20)
             {
