@@ -11,12 +11,13 @@ public class PlayerController : MonoBehaviour
     private bool in_the_air = false;
     private bool check_space = false;
     private int iterator = 0;
-
+    private int iterator_2 = 0;
     private Rigidbody2D rb;
     private bool isGrounded;
     public Transform groundCheck;
     public float checkRadius;
     public LayerMask whatIsGround;
+    public Collision_with_opponent colwithOp;
     public Animator anim;
 
     void Start()
@@ -28,11 +29,25 @@ public class PlayerController : MonoBehaviour
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsGround);
 
+        if (colwithOp.Ret_if_hit())
+        {
+            anim.SetBool("TouchedByOppnt", true);
+        }
+        
+
         moveInput = Input.GetAxis("Horizontal"); 
         anim.SetFloat("Speed", Mathf.Abs(moveInput));
 
-        if(isGrounded)
+        if (isGrounded)
         {
+            if(iterator_2>3)
+            {
+                anim.SetBool("TouchedByOppnt", false);
+                colwithOp.Ins_if_hit(false);
+                iterator_2 = 0;
+            }
+
+
             anim.SetBool("isGround", true);
             if (iterator > 20)
             {
@@ -40,7 +55,7 @@ public class PlayerController : MonoBehaviour
                 iterator = 0;
             }
         }
-        else if(isGrounded == false && in_the_air == true)
+        else if (isGrounded == false && in_the_air == true)
         {
             anim.SetBool("isGround", false);
         }
@@ -58,6 +73,8 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if(colwithOp.Ret_if_hit()) iterator_2++;
+
         if (Input.GetKeyDown(KeyCode.UpArrow) && isGrounded)
         {
             rb.velocity = Vector2.up * jumpForce;

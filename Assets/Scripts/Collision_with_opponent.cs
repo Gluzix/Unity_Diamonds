@@ -11,6 +11,18 @@ public class Collision_with_opponent : MonoBehaviour
     private int heart_counter = 1;
     private bool destroy_life = false;
     private int wait_few_frames = 0;
+    private bool if_hit = false;
+
+    public bool Ret_if_hit()
+    {
+        return if_hit;
+    }
+
+    public void Ins_if_hit(bool _if_hit)
+    {
+        if_hit = _if_hit;
+    }
+
 
     // Start is called before the first frame update
     void Start()
@@ -34,6 +46,7 @@ public class Collision_with_opponent : MonoBehaviour
         {
             if (collision.gameObject.name == "Opponent_Mace_" + i.ToString())
             {
+                if_hit = true;
                 rb.velocity = new Vector2();
                 rb.velocity = Vector2.up * HitForce;
                 if(destroy_life)
