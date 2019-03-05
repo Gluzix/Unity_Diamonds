@@ -10,6 +10,7 @@ public class Collision_with_opponent : MonoBehaviour
     public GameObject Hearts_1, Hearts_2, Hearts_3;
     private int heart_counter = 1;
     private bool destroy_life = false;
+    private int wait_few_frames = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -19,7 +20,12 @@ public class Collision_with_opponent : MonoBehaviour
 
     void Update()
     {
+        if (wait_few_frames > 60)
+        {
             destroy_life = true;
+            wait_few_frames = 0;
+        }
+        else if(!destroy_life) wait_few_frames++;
     }
 
     void OnCollisionEnter2D(Collision2D collision)
