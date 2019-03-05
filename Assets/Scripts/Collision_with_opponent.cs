@@ -9,7 +9,6 @@ public class Collision_with_opponent : MonoBehaviour
     private float HitForce = 35;
     public GameObject Hearts_1, Hearts_2, Hearts_3;
     private int heart_counter = 1;
-    private int wait_few_frames = 0;
     private bool destroy_life = false;
 
     // Start is called before the first frame update
