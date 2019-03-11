@@ -10,7 +10,7 @@ public class SimpleUi : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(cwo.ret_fin())
+        if(cwo.ret_fin() || Finish.ret_if_plr_entered_fnsh())
         {
             Time.timeScale = 0;
             text1.text = "Press Q to Quit";
